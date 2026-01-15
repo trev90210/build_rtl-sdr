@@ -24,13 +24,10 @@ jobs:
       ARCH_NUM: "${{ matrix.architecture == 'x64' && '64' || '32' }}"
       CMAKE_ARCH: "${{ matrix.architecture == 'x64' && 'x64' || 'Win32' }}"
       LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
-      #RTL_SDR_OWNER: osmocom
-      #RTL_SDR_REPO: rtl-sdr
-      #BUILD_NAME: osmocom_rtl-sdr
+      RTL_SDR_OWNER: osmocom
+      RTL_SDR_REPO: rtl-sdr
+      BUILD_NAME: osmocom_rtl-sdr
 
-      RTL_SDR_OWNER: trev90210
-      RTL_SDR_REPO: rtl-sdr-blog
-      BUILD_NAME: rtlsdrblog_rtl-sdr-blog
       RUBBISH: XX
 
     steps:
@@ -115,6 +112,7 @@ jobs:
 
       - name: Create zip
         run: 7z a -tzip $RTL_SDR_BUILD_win_$ARCH.zip "./dist/*"
+
 
 
 
