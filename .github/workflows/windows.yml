@@ -26,7 +26,7 @@ jobs:
       LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
       RTL_SDR_OWNER: osmocom
       RTL_SDR_REPO: rtl-sdr
-      RTL_SDR_BUILD: osmocom_rtl-sdr
+      RTL_SDR_BUILD: 'osmocom_rtl-sdr'
 
     steps:
       - run: choco install wget sed innoextract --no-progress
@@ -110,6 +110,7 @@ jobs:
 
       - name: Create zip
         run: 7z a -tzip $RTL_SDR_BUILD_win_$ARCH.zip "./dist/*"
+
 
 
 
