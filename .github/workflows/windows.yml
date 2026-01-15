@@ -79,7 +79,7 @@ jobs:
 
       - name: RTL-SDR build
         run: |
-          git clone --depth 1 https://github.com/${{RTL_SDR_OWNER}}/${{RTL_SDR_REPO}}
+          git clone --depth 1 https://github.com/$RTL_SDR_OWNER/$RTL_SDR_REPO
           mkdir rtl-sdr/build && cd rtl-sdr/build
           cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
                 -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
