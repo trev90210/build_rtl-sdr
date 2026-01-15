@@ -1,0 +1,110 @@
+name: windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
+        architecture: [x86, x64]
+    env:
+      ARCH: ${{ matrix.architecture }}
+      ARCH_NUM: "${{ matrix.architecture == 'x64' && '64' || '32' }}"
+      CMAKE_ARCH: "${{ matrix.architecture == 'x64' && 'x64' || 'Win32' }}"
+      LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
+
+    steps:
+      - run: choco install wget sed innoextract --no-progress
+
+      - name: Setup dist folder
+        run: |
+          mkdir dist
+          if [[ $ARCH_NUM == "64" ]]
+          then
+            DLLDIR="/C/Windows/System32"
+          else
+            DLLDIR="/C/Windows/SysWOW64"
+          fi
+          ls $DLLDIR
+          cp $DLLDIR/vcruntime140.dll $DLLDIR/concrt140.dll $DLLDIR/msvcp140.dll $DLLDIR/vccorlib140.dll dist
+          ls -lashR dist
+
+      - name: Setup libusb
+        run: |
+          wget -nv https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.7z
+          7z x libusb-1.0.25.7z -olibusb > /dev/null
+          ls -lashR $GITHUB_WORKSPACE/libusb
+
+      - name: Setup pthreads
+        run: |
+          wget -nv https://www.mirrorservice.org/sites/sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip
+          7z x pthreads-w32-2-9-1-release.zip -opthreads > /dev/null
+          ls -lashR $GITHUB_WORKSPACE/pthreads
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.architecture }}
+
+      - name: Setup FFTW
+        run: |
+          wget -nv https://fftw.org/pub/fftw/fftw-3.3.5-dll$ARCH_NUM.zip
+          7z x fftw-3.3.5-dll$ARCH_NUM.zip -offtw > /dev/null
+          cd fftw
+          lib /machine:$ARCH /def:libfftw3-3.def
+          lib /machine:$ARCH /def:libfftw3f-3.def
+          lib /machine:$ARCH /def:libfftw3l-3.def
+          ls -lashR $GITHUB_WORKSPACE/fftw
+
+      - name: Setup FX3SDK
+        run: |
+          wget -nv http://downloads.myriadrf.org/project/limesuite/appveyor/FX3SDK.zip
+          7z x FX3SDK.zip -ofx3sdk > /dev/null
+          ls -lashR $GITHUB_WORKSPACE/fx3sdk
+
+
+      - name: RTL-SDR build
+        run: |
+          git clone --depth 1 https://github.com/osmocom/rtl-sdr
+          mkdir rtl-sdr/build && cd rtl-sdr/build
+          cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
+                -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
+                -DLIBUSB_INCLUDE_DIRS=$GITHUB_WORKSPACE/libusb/include/libusb-1.0 \
+                -DTHREADS_PTHREADS_INCLUDE_DIR=$GITHUB_WORKSPACE/pthreads/Pre-built.2/include \
+                -DTHREADS_PTHREADS_LIBRARY=$GITHUB_WORKSPACE/pthreads/Pre-built.2/lib/$ARCH/pthreadVC2.lib ..
+          cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
+          cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
+          echo "* RTL-SDR: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+          ls -lashR $GITHUB_WORKSPACE/rtl-sdr
+
+
+      - name: Package
+        run: |
+          mv dist/lib/* dist/
+          mv dist/bin/* dist/
+          #rm -rf dist/bin dist/lib dist/cmake dist/pkgconfig
+          #rm dist/*.exe
+          ls -lashR dist
+
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: win-${{ matrix.architecture }}
+          path: dist
+
+
+
+      - name: Create zip
+        run: 7z a -tzip win-$ARCH.zip "./dist/*"
+
