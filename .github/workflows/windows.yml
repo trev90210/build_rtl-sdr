@@ -26,7 +26,7 @@ jobs:
       LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
       RTL_SDR_OWNER: osmocom
       RTL_SDR_REPO: rtl-sdr
-      BUILD_NAME: 'osmocom_rtl-sdr'
+      BUILD_NAME: osmocom_rtl-sdr
       RUBBISH: XX
 
     steps:
@@ -111,6 +111,7 @@ jobs:
 
       - name: Create zip
         run: 7z a -tzip $RTL_SDR_BUILD_win_$ARCH.zip "./dist/*"
+
 
 
 
