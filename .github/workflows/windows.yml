@@ -26,7 +26,8 @@ jobs:
       LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
       RTL_SDR_OWNER: osmocom
       RTL_SDR_REPO: rtl-sdr
-      RTL_SDR_BUILD: 'osmocom_rtl-sdr'
+      BUILD_NAME: 'osmocom_rtl-sdr'
+      RUBBISH: XX
 
     steps:
       - run: choco install wget sed innoextract --no-progress
@@ -103,13 +104,14 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: $RTL_SDR_BUILD_win-$matrix.architecture
+          name: $BUILD_NAME-win-${{ matrix.architecture }}
           path: dist
 
 
 
       - name: Create zip
         run: 7z a -tzip $RTL_SDR_BUILD_win_$ARCH.zip "./dist/*"
+
 
 
 
