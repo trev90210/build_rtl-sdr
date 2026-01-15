@@ -24,6 +24,9 @@ jobs:
       ARCH_NUM: "${{ matrix.architecture == 'x64' && '64' || '32' }}"
       CMAKE_ARCH: "${{ matrix.architecture == 'x64' && 'x64' || 'Win32' }}"
       LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
+      RTL_SDR_OWNER: osmocom
+      RTL_SDR_REPO: rtl-sdr
+      RTL_SDR_BUILD: rtl-sdr
 
     steps:
       - run: choco install wget sed innoextract --no-progress
@@ -76,7 +79,7 @@ jobs:
 
       - name: RTL-SDR build
         run: |
-          git clone --depth 1 https://github.com/osmocom/rtl-sdr
+          git clone --depth 1 https://github.com/${{RTL_SDR_OWNER}}/${{RTL_SDR_REPO}}
           mkdir rtl-sdr/build && cd rtl-sdr/build
           cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
                 -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
