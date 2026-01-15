@@ -109,5 +109,5 @@ jobs:
 
 
       - name: Create zip
-        run: 7z a -tzip $RTL_SDR_BUILD_win-$ARCH.zip "./dist/*"
+        run: 7z a -tzip $RTL_SDR_BUILD_win_$ARCH.zip "./dist/*"
 
