@@ -26,7 +26,7 @@ jobs:
       LONG_ARCH: "${{ matrix.architecture == 'x64' && 'x86_64' || 'x86' }}"
       RTL_SDR_OWNER: osmocom
       RTL_SDR_REPO: rtl-sdr
-      RTL_SDR_BUILD: rtl-sdr
+      RTL_SDR_BUILD: osmocom_rtl-sdr
 
     steps:
       - run: choco install wget sed innoextract --no-progress
@@ -80,7 +80,7 @@ jobs:
       - name: RTL-SDR build
         run: |
           git clone --depth 1 https://github.com/$RTL_SDR_OWNER/$RTL_SDR_REPO
-          mkdir rtl-sdr/build && cd rtl-sdr/build
+          mkdir $RTL_SDR_REPO/build && cd $RTL_SDR_REPO/build
           cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
                 -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
                 -DLIBUSB_INCLUDE_DIRS=$GITHUB_WORKSPACE/libusb/include/libusb-1.0 \
@@ -88,8 +88,8 @@ jobs:
                 -DTHREADS_PTHREADS_LIBRARY=$GITHUB_WORKSPACE/pthreads/Pre-built.2/lib/$ARCH/pthreadVC2.lib ..
           cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
           cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
-          echo "* RTL-SDR: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
-          ls -lashR $GITHUB_WORKSPACE/rtl-sdr
+          echo "* $RTL_SDR_REPO: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+          ls -lashR $GITHUB_WORKSPACE/$RTL_SDR_REPO
 
 
       - name: Package
@@ -103,11 +103,11 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: win-${{ matrix.architecture }}
+          name: win-${{ RTL_SDR_BUILD_matrix.architecture }}
           path: dist
 
 
 
       - name: Create zip
-        run: 7z a -tzip win-$ARCH.zip "./dist/*"
+        run: 7z a -tzip $RTL_SDR_BUILD_win-$ARCH.zip "./dist/*"
 
