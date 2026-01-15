@@ -103,11 +103,12 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: win-${{ $RTL_SDR_BUILD }}-${{ matrix.architecture }}
+          name: win-${{ RTL_SDR_BUILD_matrix.architecture }}
           path: dist
 
 
 
       - name: Create zip
         run: 7z a -tzip $RTL_SDR_BUILD_win_$ARCH.zip "./dist/*"
+
 
