@@ -103,7 +103,7 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: win-${{$RTL_SDR_BUILD}}_${{ matrix.architecture }}
+          name: win-$RTL_SDR_BUILD-${{ matrix.architecture }}
           path: dist
 
 
