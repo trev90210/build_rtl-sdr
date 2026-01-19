@@ -16,6 +16,10 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build-on-windows:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
@@ -37,12 +41,12 @@ jobs:
           git clone https://github.com/libusb/libusb libusb
           git clone https://github.com/trev90211/librtlsdr librtlsdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
-          cmd.exe /c echo ********************************************
-          cmd.exe /c echo runner.workspace  ${{runner.workspace}} /s
-          cmd.exe /c dir ${{runner.workspace}} /s
-          cmd.exe /c echo ********************************************
-          cmd.exe /c echo github.workspace  ${{github.workspace}}\pthread-win32\static 
-          cmd.exe /c dir ${{github.workspace}}\pthread-win32\static 
+          echo ********************************************
+          echo runner.workspace  ${{runner.workspace}} /s
+          ls ${{runner.workspace}} /s
+          echo ********************************************
+          echo github.workspace  ${{github.workspace}}\pthread-win32\static 
+          ls ${{github.workspace}}\pthread-win32\static 
           cmd.exe /c echo ********************************************
           cmd.exe /c echo github.workspace  ${{github.workspace}}\pthread-win32 /s 
           cmd.exe /c dir ${{github.workspace}}\pthread-win32 /s 
