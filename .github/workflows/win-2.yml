@@ -80,7 +80,7 @@ jobs:
           cd ..
           
     - name: Setup libusb MSBuild
-      uses: microsoft/setup-msbuild@v1.3
+      uses: microsoft/setup-msbuild@v2
 
     - name: Build libusb
       working-directory: ${{ github.workspace }}
