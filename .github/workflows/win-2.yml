@@ -48,7 +48,7 @@ jobs:
           ls -las "${{ runner.workspace }}" 
           echo ********************************************
           echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
-          ls "${{ github.workspace }}/pthread-win32/static"
+          ls "${{ github.workspace }}\pthread-win32\static"
           echo ********************************************
           echo "github.workspace  ${{github.workspace}}\pthread-win32"
           echo -las "${{github.workspace}}\pthread-win32"
