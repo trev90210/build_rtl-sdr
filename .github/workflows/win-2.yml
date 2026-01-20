@@ -43,29 +43,29 @@ jobs:
           git clone https://github.com/libusb/libusb libusb
           git clone https://github.com/trev90211/librtlsdr librtlsdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
-          echo ********************************************
-          echo runner.workspace  "${{runner.workspace}} /s"
+          echo "********************************************"
+          echo "runner.workspace  ${{runner.workspace}} /s"
           ls -las "${{ runner.workspace }}" 
-          echo ********************************************
+          echo "********************************************"
           echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
           ls -las "${{ github.workspace }}\\pthread-win32"
-          echo ********************************************
+          echo "********************************************""
           echo "github.workspace  ${{github.workspace}}\libusb"
-          echo -las "${{github.workspace}}\\libusb"
-          echo ********************************************
-          echo "github.workspace  ${{github.workspace}}
+          ls -las "${{github.workspace}}\\libusb"
+          echo "********************************************""
+          echo "github.workspace  ${{github.workspace}}"
           ls -las "${{github.workspace}}""
-          echo ********************************************
+          echo "********************************************""
     - name: Build pthread-win32
       working-directory: ${{github.workspace}}
       run: |
           cd pthread-win32
           cmake -B "${{github.workspace}}/pthread-win32/static" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
           cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
-          echo ********************************************
-          echo ls /s
+          echo "********************************************""
+          echo "ls /s"
           ls -las
-          echo ********************************************
+          echo "********************************************""
           echo "github.workspace  ${{github.workspace}} /s"
           ls -las "${{github.workspace}}"
           echo ********************************************
@@ -80,6 +80,7 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
           cd "${{github.workspace}}/libusb"
+          ls
           msbuild msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
           echo ********************************************
           echo ls /s
