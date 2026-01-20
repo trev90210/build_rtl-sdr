@@ -12,13 +12,13 @@ on:
     branches:
       - master
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 defaults:
   run:
     shell: bash
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
 
 jobs:
   build-on-windows:
@@ -27,6 +27,8 @@ jobs:
     runs-on: windows-2025
 
     steps:
+    - run: choco install wget sed innoextract --no-progress
+
 
     - name: Checkout repository
       uses: actions/checkout@v4
