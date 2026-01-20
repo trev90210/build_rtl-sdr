@@ -47,30 +47,30 @@ jobs:
           echo runner.workspace  "${{runner.workspace}} /s"
           ls -las "${{ runner.workspace }}" 
           echo ********************************************
-          echo github.workspace  ${{github.workspace}}/pthread-win32/static 
-          ls ${{ github.workspace }}/pthread-win32/static 
+          echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
+          ls "${{ github.workspace }}/pthread-win32/static"
           echo ********************************************
-          echo github.workspace  ${{github.workspace}}\pthread-win32 /s 
-          ls ${{github.workspace}}\pthread-win32 /s 
+          echo "github.workspace  ${{github.workspace}}\pthread-win32"
+          echo -las "${{github.workspace}}\pthread-win32"
           echo ********************************************
-          echo github.workspace  ${{github.workspace}}
-          ls ${{github.workspace}} 
+          echo "github.workspace  ${{github.workspace}}
+          ls "${{github.workspace}}""
           echo ********************************************
     - name: Build pthread-win32
       working-directory: ${{github.workspace}}
       run: |
           cd pthread-win32
-          cmake -B ${{github.workspace}}/pthread-win32/static -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
-          cmake --build ${{github.workspace}}/pthread-win32/static --config Release --target install
+          cmake -B "${{github.workspace}}/pthread-win32/static' -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
+          cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
           echo ********************************************
           echo ls /s
-          ls /s
+          ls -las
           echo ********************************************
-          echo github.workspace  ${{github.workspace}} /s
-          ls ${{github.workspace}} /s
+          echo "github.workspace  ${{github.workspace}} /s"
+          ls -las "${{github.workspace}}"
           echo ********************************************
-          echo runner.workspace  ${{runner.workspace}} /s
-          ls ${{runner.workspace}} /s
+          echo "runner.workspace  ${{runner.workspace}}"
+          ls -las "${{runner.workspace}}"
           cd ..
           
     - name: Setup libusb MSBuild
