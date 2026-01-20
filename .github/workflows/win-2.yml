@@ -72,20 +72,20 @@ jobs:
           echo "ls /s"
           ls -las
           echo "********************************************"
-          echo "github.workspace  ${{github.workspace}} /s"
-          ls -las "${{github.workspace}}"
+          echo "github.workspace  ${{ github.workspace }} /s"
+          ls -las "${{ github.workspace }}"
           echo ********************************************
-          echo "runner.workspace  ${{runner.workspace}}"
-          ls -las "${{runner.workspace}}"
+          echo "runner.workspace  ${{ runner.workspace }}"
+          ls -las "${{ runner.workspace }}"
           cd ..
           
     - name: Setup libusb MSBuild
       uses: microsoft/setup-msbuild@v1.3
 
     - name: Build libusb
-      working-directory: ${{github.workspace}}
+      working-directory: ${{ github.workspace }}
       run: |
-          cd "${{github.workspace}}/libusb"
+          cd "${{ github.workspace }}/libusb"
           ls
           msbuild msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
           echo ********************************************
@@ -95,9 +95,9 @@ jobs:
           cd ..
 
     - name: Configure Visual Studio and CMake
-      working-directory: ${{runner.workspace}}
+      working-directory: ${{ runner.workspace }}
       run: |
-          cd ${{github.workspace}}
+          cd ${{ github.workspace }}
           ls 
           #ls "d:\a\ExtIO_RTL_h\ExtIO_RTL_h\pthread-win32\" 
           #ls "c:\Program Files (x86)\Microsoft Visual Studio/installer"
