@@ -74,7 +74,7 @@ jobs:
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }} /s"
           ls -lash "${{ github.workspace }}"
-          echo ********************************************
+          echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }}"
           ls -lasR "${{ runner.workspace }}"
           cd ..
@@ -87,11 +87,12 @@ jobs:
       run: |
           cd "${{ github.workspace }}/libusb"
           ls -lash
-          msbuild msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
-          echo ********************************************
+          msbuild msvc/libusb.sln /m -property:Configuration="Release" -property:Platform="Win32"
+          echo "********************************************"
           echo "ls /s"
+          ls -lash
           ls -lasR
-          echo ********************************************
+          echo "********************************************"
           cd ..
 
     - name: Configure Visual Studio and CMake
