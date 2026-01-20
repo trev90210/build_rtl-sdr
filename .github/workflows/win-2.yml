@@ -45,7 +45,7 @@ jobs:
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
           echo ********************************************
           echo runner.workspace  "${{runner.workspace}} /s"
-          ls "${{ runner.workspace }} /s" 
+          ls -las "${{ runner.workspace }}" 
           echo ********************************************
           echo github.workspace  ${{github.workspace}}/pthread-win32/static 
           ls ${{ github.workspace }}/pthread-win32/static 
