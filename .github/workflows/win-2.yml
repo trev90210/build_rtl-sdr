@@ -88,7 +88,7 @@ jobs:
           cd "${{ github.workspace }}/libusb"
           ls -lash
           ls -lasR
-          msbuild msvc/libusb.sln -m -property:Configuration='Release' -property:Platform='Win32'
+          msbuild msvc/libusb.sln -property:Configuration=Release -property:Platform=Win32
           echo "********************************************"
           echo "ls /s"
           ls -lash
