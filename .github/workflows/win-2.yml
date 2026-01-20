@@ -44,8 +44,11 @@ jobs:
           git clone https://github.com/trev90211/librtlsdr librtlsdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
           echo "********************************************"
-          echo "ls -las"
-          ls -las  
+          echo "ls -lash"
+          ls -lash
+          echo "********************************************"
+          echo "ls -lasR"
+          ls -lasR
           echo "********************************************"
           echo "runner.workspace  ${{runner.workspace}} /s"
           ls -las "${{ runner.workspace }}" 
@@ -54,13 +57,13 @@ jobs:
           ls -las "${{ github.workspace }}\\pthread-win32"
           echo "********************************************""
           echo "github.workspace  ${{github.workspace}}/libusb"
-          ls -las "${{github.workspace}}\\libusb"
+          ls -las "${{ github.workspace }}\\libusb"
           echo "********************************************""
-          echo "github.workspace  ${{github.workspace}}"
-          ls -las "${{github.workspace}}""
+          echo "github.workspace  ${{ github.workspace }}"
+          ls -las "${{ github.workspace }}""
           echo "********************************************""
     - name: Build pthread-win32
-      working-directory: ${{github.workspace}}
+      working-directory: ${{ github.workspace }}
       run: |
           cd pthread-win32
           cmake -B "${{github.workspace}}/pthread-win32/static" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
