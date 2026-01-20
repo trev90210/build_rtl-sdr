@@ -83,6 +83,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
       with:
         msbuild-architecture: x64
+        property installationPath: -latest
 
     - name: Build libusb
       working-directory: ${{ github.workspace }}
