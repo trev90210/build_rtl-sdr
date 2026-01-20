@@ -48,13 +48,13 @@ jobs:
           ls -las "${{ runner.workspace }}" 
           echo ********************************************
           echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
-          ls "${{ github.workspace }}\pthread-win32\static"
+          ls -las "${{ github.workspace }}\pthread-win32"
           echo ********************************************
           echo "github.workspace  ${{github.workspace}}\pthread-win32"
           echo -las "${{github.workspace}}\pthread-win32"
           echo ********************************************
           echo "github.workspace  ${{github.workspace}}
-          ls "${{github.workspace}}""
+          ls -las "${{github.workspace}}""
           echo ********************************************
     - name: Build pthread-win32
       working-directory: ${{github.workspace}}
