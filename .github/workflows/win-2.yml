@@ -79,13 +79,13 @@ jobs:
           ls -lasR "${{ runner.workspace }}"
           cd ..
           echo "type"
+          ls /c/ProgramData/Chocolatey/bin 
           echo (/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)
           
     - name: Setup libusb MSBuild
       uses: microsoft/setup-msbuild@v2
       with:
         msbuild-architecture: x64
-        property installationPath: -latest
 
     - name: Build libusb
       working-directory: ${{ github.workspace }}
