@@ -44,11 +44,11 @@ jobs:
           git clone https://github.com/trev90211/librtlsdr librtlsdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
           echo ********************************************
-          echo runner.workspace  ${{runner.workspace}} /s
-          ls ${{runner.workspace}} /
+          echo runner.workspace  "${{runner.workspace}} /s"
+          ls ${{ runner.workspace }} 
           echo ********************************************
-          echo github.workspace  ${{github.workspace}}\pthread-win32\static 
-          ls ${{github.workspace}}\pthread-win32\static 
+          echo github.workspace  ${{github.workspace}}/pthread-win32/static 
+          ls ${{ github.workspace }}/pthread-win32/static 
           echo ********************************************
           echo github.workspace  ${{github.workspace}}\pthread-win32 /s 
           ls ${{github.workspace}}\pthread-win32 /s 
