@@ -78,7 +78,7 @@ jobs:
     - name: Build libusb
       working-directory: ${{github.workspace}}
       run: |
-          cd ${{github.workspace}}/libusb
+          cd "${{github.workspace}}/libusb"
           msbuild msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
           echo ********************************************
           echo ls /s
