@@ -21,6 +21,9 @@ defaults:
     shell: bash
 
 jobs:
+  defaults:
+    run:
+      shell: bash
   build-on-windows:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     # windows-latest or windows-2022 fail!?
