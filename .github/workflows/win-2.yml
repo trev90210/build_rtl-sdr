@@ -50,8 +50,8 @@ jobs:
           echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
           ls -las "${{ github.workspace }}\\pthread-win32"
           echo ********************************************
-          echo "github.workspace  ${{github.workspace}}\pthread-win32"
-          echo -las "${{github.workspace}}\pthread-win32"
+          echo "github.workspace  ${{github.workspace}}\libusb"
+          echo -las "${{github.workspace}}\\libusb"
           echo ********************************************
           echo "github.workspace  ${{github.workspace}}
           ls -las "${{github.workspace}}""
@@ -75,6 +75,7 @@ jobs:
           
     - name: Setup libusb MSBuild
       uses: microsoft/setup-msbuild@v1.3
+
     - name: Build libusb
       working-directory: ${{github.workspace}}
       run: |
