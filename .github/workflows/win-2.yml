@@ -27,7 +27,7 @@ jobs:
     runs-on: windows-2025
 
     steps:
-    - run: choco install wget sed innoextract --no-progress
+    - run: choco install wget innoextract --no-progress
 
 
     - name: Checkout repository
@@ -50,28 +50,28 @@ jobs:
           echo "ls -lasR"
           ls -lasR
           echo "********************************************"
-          echo "runner.workspace  ${{runner.workspace}} /s"
+          echo "runner.workspace  ${{ runner.workspace }} /s"
           ls -las "${{ runner.workspace }}" 
           echo "********************************************"
-          echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
+          echo "github.workspace  ${{ github.workspace }}/pthread-win32/static"
           ls -las "${{ github.workspace }}/pthread-win32"
-          echo "********************************************""
-          echo "github.workspace  ${{github.workspace}}/libusb"
+          echo "********************************************"
+          echo "github.workspace  ${{ github.workspace }}/libusb"
           ls -las "${{ github.workspace }}/libusb"
-          echo "********************************************""
+          echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}"
-          ls -las "${{ github.workspace }}""
-          echo "********************************************""
+          ls -las "${{ github.workspace }}"
+          echo "********************************************"
     - name: Build pthread-win32
       working-directory: ${{ github.workspace }}
       run: |
           cd pthread-win32
           cmake -B "${{github.workspace}}/pthread-win32/static" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
           cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
-          echo "********************************************""
+          echo "********************************************"
           echo "ls /s"
           ls -las
-          echo "********************************************""
+          echo "********************************************"
           echo "github.workspace  ${{github.workspace}} /s"
           ls -las "${{github.workspace}}"
           echo ********************************************
