@@ -50,7 +50,7 @@ jobs:
           echo "github.workspace  ${{github.workspace}}/pthread-win32/static"
           ls -las "${{ github.workspace }}\\pthread-win32"
           echo "********************************************""
-          echo "github.workspace  ${{github.workspace}}\libusb"
+          echo "github.workspace  ${{github.workspace}}\\libusb"
           ls -las "${{github.workspace}}\\libusb"
           echo "********************************************""
           echo "github.workspace  ${{github.workspace}}"
