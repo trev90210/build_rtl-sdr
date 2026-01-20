@@ -70,13 +70,13 @@ jobs:
           cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
           echo "********************************************"
           echo "ls /s"
-          ls -las
+          ls -lash
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }} /s"
-          ls -las "${{ github.workspace }}"
+          ls -lash "${{ github.workspace }}"
           echo ********************************************
           echo "runner.workspace  ${{ runner.workspace }}"
-          ls -las "${{ runner.workspace }}"
+          ls -lasR "${{ runner.workspace }}"
           cd ..
           
     - name: Setup libusb MSBuild
@@ -86,11 +86,11 @@ jobs:
       working-directory: ${{ github.workspace }}
       run: |
           cd "${{ github.workspace }}/libusb"
-          ls
+          ls -lash
           msbuild msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
           echo ********************************************
-          echo ls /s
-          ls /s
+          echo "ls /s"
+          ls -lasR
           echo ********************************************
           cd ..
 
