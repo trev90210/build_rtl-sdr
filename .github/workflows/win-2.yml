@@ -78,7 +78,7 @@ jobs:
           echo "runner.workspace  ${{ runner.workspace }}"
           ls -lasR "${{ runner.workspace }}"
           cd ..
-          type /c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest
+          type (/c/ProgramData/Chocolatey/bin/vswhere -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)
           
     - name: Setup libusb MSBuild
       uses: microsoft/setup-msbuild@v2
