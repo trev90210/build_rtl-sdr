@@ -93,7 +93,7 @@ jobs:
           ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
           echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe)"
           
-          echo (/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)
+          echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
           
     - name: Setup libusb MSBuild
       uses: microsoft/setup-msbuild@v2
