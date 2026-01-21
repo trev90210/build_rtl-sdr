@@ -26,6 +26,7 @@ jobs:
         run: |
           git clone https://github.com/trev90210/libusb
           cd libusb
+          cmd.exe /c "dir"
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
