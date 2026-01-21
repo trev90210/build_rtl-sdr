@@ -106,7 +106,7 @@ jobs:
           #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
 
           PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe"
-          
+          echo $PATH
     #- name: Setup libusb MSBuild
     #  uses: microsoft/setup-msbuild@v2
     #  with:
