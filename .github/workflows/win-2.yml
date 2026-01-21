@@ -105,7 +105,8 @@ jobs:
           
           #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
 
-          PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64"
+          #PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64"
+          PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
           echo $PATH
     #- name: Setup libusb MSBuild
     #  uses: microsoft/setup-msbuild@v2
@@ -118,7 +119,7 @@ jobs:
           cd "${{ github.workspace }}/libusb"
           ls -lash
           ls -lasR
-          msbuild msvc/libusb.sln -property:Configuration=Release -m -property:Platform=X64
+          msbuild msvc/libusb.sln -property:Configuration=Release -m -property:Platform=Win32
           echo "********************************************"
           echo "ls /s"
           ls -lash
