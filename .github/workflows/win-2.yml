@@ -79,6 +79,7 @@ jobs:
           ls -lasR "${{ runner.workspace }}"
           cd ..
           echo "pgms"
+          ls -lash "/c/"
           ls -lash "/c/ProgramData"
           ls -lash "/c/ProgramData/Chocolatey"
           ls -lash "/c/ProgramData/Chocolatey/bin"
