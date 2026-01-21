@@ -77,38 +77,40 @@ jobs:
           echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }}"
           ls -lasR "${{ runner.workspace }}"
-          cd ..
-          echo "pgms"
-          ls -lash "/c/"
-          ls -lash "/c/ProgramData"
-          ls -lash "/c/ProgramData/Chocolatey"
-          ls -lash "/c/ProgramData/Chocolatey/bin"
-          ls -lash "/c/Program Files"
-          ls -lash "/c/Program Files/MSBuild"
-          ls -lash "/c/Program Files/MSBuild/Microsoft"
-          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
-          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
-          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
-          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
-          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
+          #cd ..
+          #echo "pgms"
+          #ls -lash "/c/"
+          #ls -lash "/c/ProgramData"
+          #ls -lash "/c/ProgramData/Chocolatey"
+          #ls -lash "/c/ProgramData/Chocolatey/bin"
+          #ls -lash "/c/Program Files"
+          #ls -lash "/c/Program Files/MSBuild"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
 
-          cd "/c/Program Files/"
-          find . -name MSBuild.exe
+          #cd "/c/Program Files/"
+          #find . -name MSBuild.exe
 
-          cd "/c/Program Files (x86)/"
-          find . -name MSBuild.exe
+          #cd "/c/Program Files (x86)/"
+          #find . -name MSBuild.exe
           
-          ls -lasR "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
-          ls -lasR "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          #ls -lasR "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          #ls -lasR "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
           
-          echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
+          #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
           
-          echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
+          #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
+
+          PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe"
           
-    - name: Setup libusb MSBuild
-      uses: microsoft/setup-msbuild@v2
-      with:
-        msbuild-architecture: x64
+    #- name: Setup libusb MSBuild
+    #  uses: microsoft/setup-msbuild@v2
+    #  with:
+    #    msbuild-architecture: x64
 
     - name: Build libusb
       working-directory: ${{ github.workspace }}
