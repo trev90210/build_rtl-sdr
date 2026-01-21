@@ -87,6 +87,8 @@ jobs:
           ls -lash "/c/Program Files/MSBuild"
           ls -lash "/c/Program Files/MSBuild/Microsoft"
           ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
+          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
+          ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
           echo (/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)
           
     - name: Setup libusb MSBuild
