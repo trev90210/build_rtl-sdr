@@ -84,6 +84,7 @@ jobs:
           ls -lash "/c/ProgramData/Chocolatey"
           ls -lash "/c/ProgramData/Chocolatey/bin"
           ls -lash "/c/Program Files"
+          ls -lash "/c/Program Files/MSBuild"
           echo (/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)
           
     - name: Setup libusb MSBuild
