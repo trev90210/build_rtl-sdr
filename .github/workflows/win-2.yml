@@ -98,6 +98,9 @@ jobs:
           cd "/c/Program Files (x86)/"
           find . -name MSBuild.exe
           
+          ls -lasR "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          ls -lasR "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          
           echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
           
           echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
