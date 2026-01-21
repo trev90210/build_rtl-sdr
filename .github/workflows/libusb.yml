@@ -10,14 +10,7 @@ jobs:
         #  - 'windows-2022'
           - 'windows-2025'
         configuration:
-          - 'Debug'
           - 'Release'
-          - 'Debug-MT'
-          - 'Release-MT'
-          - 'Debug-Hotplug'
-          - 'Release-Hotplug'
-          - 'Debug-Hotplug-MT'
-          - 'Release-Hotplug-MT'
         architecture:
           - 'Win32'
           - 'x64'
