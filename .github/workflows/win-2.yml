@@ -91,7 +91,7 @@ jobs:
           ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
           ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
           ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
-          echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe)"
+          echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
           
           echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
           
