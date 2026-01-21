@@ -94,6 +94,9 @@ jobs:
 
           cd "/c/Program Files/"
           find . -name MSBuild.exe
+
+          cd "/c/Program Files (x86)/"
+          find . -name MSBuild.exe
           
           echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
           
