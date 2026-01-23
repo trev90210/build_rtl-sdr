@@ -92,7 +92,9 @@ jobs:
 
           echo "********************************************"
           echo "dir /s"
-          dir /s
+          ls -las
+          ls ..
+          ls ../..
           echo "********************************************"
           cd ..
 
@@ -148,6 +150,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
