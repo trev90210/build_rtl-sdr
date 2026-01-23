@@ -15,7 +15,7 @@ on:
 
 defaults:
   run:
-    shell: cmd
+    shell: PowerShell
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -146,6 +146,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
