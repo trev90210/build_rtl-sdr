@@ -1,0 +1,183 @@
+name: win-2 
+# clones all 
+
+on:
+  workflow_dispatch:
+  # Trigger the workflow on push or pull request - but only for the main branch
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - 'v*'
+  pull_request:
+    branches:
+      - master
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build-on-windows:
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    # windows-latest or windows-2022 fail!?
+    runs-on: windows-2025
+
+    steps:
+    - run: choco install wget innoextract --no-progress
+
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+
+    - name: Clone dependencies
+      working-directory: ${{ github.workspace }}
+      run: |
+          cd "${{ github.workspace }}"
+          git clone https://github.com/marzer/tomlplusplus tomlplusplus
+          git clone https://github.com/libusb/libusb libusb
+          git clone https://github.com/trev90211/rtl-sdr
+          git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
+          echo "********************************************"
+          echo "ls -lash"
+          ls -lash
+          echo "********************************************"
+          echo "ls -lasR"
+          ls -lasR
+          echo "********************************************"
+          echo "runner.workspace  ${{ runner.workspace }} /s"
+          ls -las "${{ runner.workspace }}" 
+          echo "********************************************"
+          echo "github.workspace  ${{ github.workspace }}/pthread-win32/static"
+          ls -las "${{ github.workspace }}/pthread-win32"
+          echo "********************************************"
+          echo "github.workspace  ${{ github.workspace }}/libusb"
+          ls -las "${{ github.workspace }}/libusb"
+          echo "********************************************"
+          echo "github.workspace  ${{ github.workspace }}"
+          ls -las "${{ github.workspace }}"
+          echo "********************************************"
+    - name: Build pthread-win32
+      working-directory: ${{ github.workspace }}
+      run: |
+          cd pthread-win32
+          cmake -B "${{github.workspace}}/pthread-win32/static" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
+          cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
+          echo "********************************************"
+          echo "ls /s"
+          ls -lash
+          echo "********************************************"
+          echo "github.workspace  ${{ github.workspace }} /s"
+          ls -lash "${{ github.workspace }}"
+          echo "********************************************"
+          echo "runner.workspace  ${{ runner.workspace }}"
+          ls -lasR "${{ runner.workspace }}"
+          #cd ..
+          #echo "pgms"
+          #ls -lash "/c/"
+          #ls -lash "/c/ProgramData"
+          #ls -lash "/c/ProgramData/Chocolatey"
+          #ls -lash "/c/ProgramData/Chocolatey/bin"
+          #ls -lash "/c/Program Files"
+          #ls -lash "/c/Program Files/MSBuild"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
+          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
+
+          #cd "/c/Program Files/"
+          #find . -name MSBuild.exe
+
+          #cd "/c/Program Files (x86)/"
+          #find . -name MSBuild.exe
+          
+          #ls -lasR "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          #ls -lasR "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          
+          #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
+          
+          #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
+
+          #PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64"
+          PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          echo $PATH
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configure Visual Studio and CMake
+        working-directory: ${{runner.workspace}}
+        run: |
+            cd ${{ github.workspace }}
+            # setup the compiler
+            cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+            Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
+            # run cmake, looks v141_xp Toolset requires VS 2019
+            cmake -G "Visual Studio 17 2022" -A Win32 -S libusb -B build_libusb
+            cmd.exe /c dir /s
+
+          echo "********************************************"
+          echo "ls /s"
+          ls -lash
+          ls -lasR
+          echo "********************************************"
+          cd ..
+
+    - name: Configure Visual Studio and CMake
+      working-directory: ${{ runner.workspace }}
+      run: |
+          cd ${{ github.workspace }}
+          ls 
+          #ls "d:\a\ExtIO_RTL_h\ExtIO_RTL_h\pthread-win32\" 
+          #ls "c:\Program Files (x86)\Microsoft Visual Studio/installer"
+          #ls "c:\Program Files (x86)\Microsoft Visual Studio/shared"
+          #ls "c:\Program Files (x86)\Microsoft Visual Studio 14.0/SDK"
+          #ls "c:\Program Files\Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/build"
+          #ls "c:\Program Files\Microsoft Visual Studio 14.0/common7"
+          # setup the compiler
+          "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+          type %temp%\vcvars.txt
+          type temp\vcvars.txt
+          Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
+          set
+          # run cmake, looks v141_xp Toolset requires VS 2019
+          cmake -G "Visual Studio 17 2022" -A Win32 -S ExtIO_RTL_h -B build_librtlsdr \
+                -DTHREADS_PTHREADS_INCLUDE_DIR='${{github.workspace}}/pthread-win32/static/include' \
+                -DTHREADS_PTHREADS_LIBRARY='${{github.workspace}}/pthread-win32/static/lib/pthreadVC3.lib' \
+                -DLIBUSB_LIBRARY='${{github.workspace}}/libusb/Release/lib/libusb-1.0.lib' \
+                -DLIBUSB_INCLUDE_DIRS='${{github.workspace}}/libusb/include/libusb-1.0' .
+
+    - name: Build
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: cmake --build build_librtlsdr --config $BUILD_TYPE --target librtlsdr
+
+    #- name: Dir Listing
+    #  working-directory: ${{runner.workspace}}
+    #  shell: bash
+    #  run: find . >src_listing.txt
+
+    - name: Collect files to distribute
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: |
+        cp "${{github.workspace}}/ExtIO_RTL/README.md" ./
+        cp "${{github.workspace}}/ExtIO_RTL/COPYING" ./LICENSE
+        cp "${{github.workspace}}/build_librtlsdr/Release/ExtIO_RTL.dll" ./
+
+    - name: package and upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: extio_rtl
+        path: |
+            ${{github.workspace}}/ExtIO_RTL.dll
+            ${{github.workspace}}/README.md
+            ${{github.workspace}}/LICENSE
