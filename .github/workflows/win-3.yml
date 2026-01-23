@@ -44,37 +44,37 @@ jobs:
           git clone https://github.com/libusb/libusb libusb
           git clone https://github.com/trev90211/rtl-sdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
-          echo "********************************************"
-          echo "dir /s"
-          dir /s
-          echo "********************************************"
-          echo "runner.workspace  ${{ runner.workspace }} /s"
-          dir "${{ runner.workspace }}" /s
-          echo "********************************************"
-          echo "github.workspace  ${{ github.workspace }}/pthread-win32/static"
-          dir "${{ github.workspace }}/pthread-win32" /s
-          echo "********************************************"
-          echo "github.workspace  ${{ github.workspace }}/libusb"
-          dir "${{ github.workspace }}/libusb" /s
-          echo "********************************************"
-          echo "github.workspace  ${{ github.workspace }}"
-          dir "${{ github.workspace }}" /s
-          echo "********************************************"
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "dir /s"
+          cmd.exe /c dir /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "runner.workspace  ${{ runner.workspace }} /s"
+          cmd.exe /c dir "${{ runner.workspace }}" /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "github.workspace  ${{ github.workspace }}/pthread-win32/static"
+          cmd.exe /c dir "${{ github.workspace }}/pthread-win32" /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "github.workspace  ${{ github.workspace }}/libusb"
+          cmd.exe /c dir "${{ github.workspace }}/libusb" /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "github.workspace  ${{ github.workspace }}"
+          cmd.exe /c dir "${{ github.workspace }}" /s
+          cmd.exe /c echo "********************************************"
     - name: Build pthread-win32
       working-directory: ${{ github.workspace }}
       run: |
           cd pthread-win32
           cmake -B "${{github.workspace}}/pthread-win32/static" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
           cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
-          echo "********************************************"
-          echo "dir /s"
-          dir /s
-          echo "********************************************"
-          echo "github.workspace  ${{ github.workspace }} /s"
-          dir "${{ github.workspace }}" /s
-          echo "********************************************"
-          echo "runner.workspace  ${{ runner.workspace }}"
-          dir "${{ runner.workspace }}" /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "dir /s"
+          cmd.exe /c dir /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "github.workspace  ${{ github.workspace }} /s"
+          cmd.exe /c dir "${{ github.workspace }}" /s
+          cmd.exe /c echo "********************************************"
+          cmd.exe /c echo "runner.workspace  ${{ runner.workspace }}"
+          cmd.exe /c dir "${{ runner.workspace }}" /s
           #cd ..
           #echo "pgms"
           #dir -lash "/c/"
@@ -105,8 +105,7 @@ jobs:
 
           #PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64"
           PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
-          echo $PATH
-
+          cmd.exe /c echo $PATH
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
@@ -177,3 +176,4 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
