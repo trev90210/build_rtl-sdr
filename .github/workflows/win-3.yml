@@ -123,7 +123,7 @@ jobs:
     - name: Build
       working-directory: ${{runner.workspace}}
       shell: bash
-      run: cmake --build build_rtl-sdr --config $BUILD_TYPE --target librtlsdr
+      run: cmake --build build_rtl-sdr --config Release --target librtlsdr
 
     #- name: Dir Listing
     #  working-directory: ${{runner.workspace}}
@@ -146,6 +146,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
