@@ -15,7 +15,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: cmd
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -45,23 +45,23 @@ jobs:
           git clone https://github.com/trev90211/rtl-sdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
           echo "********************************************"
-          echo "ls -lash"
-          ls -lash
+          echo "dir -lash"
+          dir -lash
           echo "********************************************"
-          echo "ls -lasR"
-          ls -lasR
+          echo "dir -lasR"
+          dir -lasR
           echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }} /s"
-          ls -las "${{ runner.workspace }}" 
+          dir -las "${{ runner.workspace }}" 
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}/pthread-win32/static"
-          ls -las "${{ github.workspace }}/pthread-win32"
+          dir -las "${{ github.workspace }}/pthread-win32"
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}/libusb"
-          ls -las "${{ github.workspace }}/libusb"
+          dir -las "${{ github.workspace }}/libusb"
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}"
-          ls -las "${{ github.workspace }}"
+          dir -las "${{ github.workspace }}"
           echo "********************************************"
     - name: Build pthread-win32
       working-directory: ${{ github.workspace }}
@@ -70,28 +70,28 @@ jobs:
           cmake -B "${{github.workspace}}/pthread-win32/static" -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
           cmake --build "${{github.workspace}}/pthread-win32/static" --config Release --target install
           echo "********************************************"
-          echo "ls /s"
-          ls -lash
+          echo "dir /s"
+          dir -lash
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }} /s"
-          ls -lash "${{ github.workspace }}"
+          dir -lash "${{ github.workspace }}"
           echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }}"
-          ls -lasR "${{ runner.workspace }}"
+          dir -lasR "${{ runner.workspace }}"
           #cd ..
           #echo "pgms"
-          #ls -lash "/c/"
-          #ls -lash "/c/ProgramData"
-          #ls -lash "/c/ProgramData/Chocolatey"
-          #ls -lash "/c/ProgramData/Chocolatey/bin"
-          #ls -lash "/c/Program Files"
-          #ls -lash "/c/Program Files/MSBuild"
-          #ls -lash "/c/Program Files/MSBuild/Microsoft"
-          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
-          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
-          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
-          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
-          #ls -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
+          #dir -lash "/c/"
+          #dir -lash "/c/ProgramData"
+          #dir -lash "/c/ProgramData/Chocolatey"
+          #dir -lash "/c/ProgramData/Chocolatey/bin"
+          #dir -lash "/c/Program Files"
+          #dir -lash "/c/Program Files/MSBuild"
+          #dir -lash "/c/Program Files/MSBuild/Microsoft"
+          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
+          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
+          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
+          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
+          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
 
           #cd "/c/Program Files/"
           #find . -name MSBuild.exe
@@ -99,8 +99,8 @@ jobs:
           #cd "/c/Program Files (x86)/"
           #find . -name MSBuild.exe
           
-          #ls -lasR "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
-          #ls -lasR "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          #dir -lasR "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
+          #dir -lasR "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
           
           #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
           
@@ -125,9 +125,9 @@ jobs:
             cmd.exe /c dir /s
 
           echo "********************************************"
-          echo "ls /s"
-          ls -lash
-          ls -lasR
+          echo "dir /s"
+          dir -lash
+          dir -lasR
           echo "********************************************"
           cd ..
 
@@ -135,13 +135,13 @@ jobs:
       working-directory: ${{ runner.workspace }}
       run: |
           cd ${{ github.workspace }}
-          ls 
-          #ls "d:\a\ExtIO_RTL_h\ExtIO_RTL_h\pthread-win32\" 
-          #ls "c:\Program Files (x86)\Microsoft Visual Studio/installer"
-          #ls "c:\Program Files (x86)\Microsoft Visual Studio/shared"
-          #ls "c:\Program Files (x86)\Microsoft Visual Studio 14.0/SDK"
-          #ls "c:\Program Files\Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/build"
-          #ls "c:\Program Files\Microsoft Visual Studio 14.0/common7"
+          dir 
+          #dir "d:\a\ExtIO_RTL_h\ExtIO_RTL_h\pthread-win32\" 
+          #dir "c:\Program Files (x86)\Microsoft Visual Studio/installer"
+          #dir "c:\Program Files (x86)\Microsoft Visual Studio/shared"
+          #dir "c:\Program Files (x86)\Microsoft Visual Studio 14.0/SDK"
+          #dir "c:\Program Files\Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/build"
+          #dir "c:\Program Files\Microsoft Visual Studio 14.0/common7"
           # setup the compiler
           "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
           type %temp%\vcvars.txt
