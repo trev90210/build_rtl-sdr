@@ -79,7 +79,7 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Configure Visual Studio and CMake
+    - name: libusb Configure Visual Studio and CMake
       working-directory: ${{runner.workspace}}
       run: |
           cd ${{ github.workspace }}
@@ -96,10 +96,10 @@ jobs:
           echo "********************************************"
           cd ..
 
-    - name: Configure Visual Studio and CMake
+    - name: librtlsdr Configure Visual Studio and CMake
       working-directory: ${{ runner.workspace }}
       run: |
-          cd ${{ github.workspace }}
+          cd ${{ runner.workspace }}
           dir 
           #dir "d:\a\ExtIO_RTL_h\ExtIO_RTL_h\pthread-win32\" 
           #dir "c:\Program Files (x86)\Microsoft Visual Studio/installer"
@@ -146,6 +146,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
