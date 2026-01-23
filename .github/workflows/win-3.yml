@@ -121,7 +121,7 @@ jobs:
                 -DLIBUSB_INCLUDE_DIRS='${{github.workspace}}/libusb/include/libusb-1.0' .
 
     - name: Build
-      working-directory: ${{github.workspace}}
+      working-directory: ${{runner.workspace}}
       shell: bash
       run: cmake --build build_librtlsdr --config $BUILD_TYPE --target librtlsdr
 
@@ -141,11 +141,12 @@ jobs:
     - name: package and upload
       uses: actions/upload-artifact@v4
       with:
-        name: extio_rtl
+        name: librtlsdr
         path: |
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
