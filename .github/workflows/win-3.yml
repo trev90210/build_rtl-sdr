@@ -119,10 +119,12 @@ jobs:
                 -DTHREADS_PTHREADS_LIBRARY='${{github.workspace}}/pthread-win32/static/lib/pthreadVC3.lib' \
                 -DLIBUSB_LIBRARY='${{github.workspace}}/libusb/Release/lib/libusb-1.0.lib' \
                 -DLIBUSB_INCLUDE_DIRS='${{github.workspace}}/libusb/include/libusb-1.0' .
+          ls ${{ runner.workspace }}
+          ls ${{ github.workspace }}
 
     - name: Build
       working-directory: ${{runner.workspace}}
-      shell: bash
+      #shell: bash
       run: cmake --build build_librtlsdr --config Release --target librtlsdr
 
     #- name: Dir Listing
@@ -146,6 +148,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
