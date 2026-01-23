@@ -1,4 +1,4 @@
-name: Windows build and Package
+name: libusb Windows build and Package
 
 on: [workflow_dispatch, push, pull_request]
 

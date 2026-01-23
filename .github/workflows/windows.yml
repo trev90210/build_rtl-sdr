@@ -1,5 +1,5 @@
-name: windows
-
+name: windows with precompiled
+# uses pre-compiled libusb & pthreads 
 on:
   workflow_dispatch:
   push:

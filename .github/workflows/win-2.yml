@@ -1,4 +1,5 @@
-name: CMake
+name: win-2 
+# clones all 
 
 on:
   workflow_dispatch:
