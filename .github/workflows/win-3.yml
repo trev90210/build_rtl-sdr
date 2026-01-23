@@ -75,37 +75,7 @@ jobs:
           cmd.exe /c echo "********************************************"
           cmd.exe /c echo "runner.workspace  ${{ runner.workspace }}"
           cmd.exe /c dir "${{ runner.workspace }}" /s
-          #cd ..
-          #echo "pgms"
-          #dir -lash "/c/"
-          #dir -lash "/c/ProgramData"
-          #dir -lash "/c/ProgramData/Chocolatey"
-          #dir -lash "/c/ProgramData/Chocolatey/bin"
-          #dir -lash "/c/Program Files"
-          #dir -lash "/c/Program Files/MSBuild"
-          #dir -lash "/c/Program Files/MSBuild/Microsoft"
-          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation"
-          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0"
-          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.0/Workflow.Targets"
-          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5"
-          #dir -lash "/c/Program Files/MSBuild/Microsoft/Windows Workflow Foundation/v3.5/Workflow.Targets"
-
-          #cd "/c/Program Files/"
-          #find . -name MSBuild.exe
-
-          #cd "/c/Program Files (x86)/"
-          #find . -name MSBuild.exe
-          
-          #dir "/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin" /s
-          #dir "/c/Program Files (X86)/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin" /s
-          
-          #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe  -latest -requires Microsoft.Component.MSBuild -find MSBuild/**/Bin/MSBuild.exe)"
-          
-          #echo $"(/c/ProgramData/Chocolatey/bin/vswhere.exe -products * -requires Microsoft.Component.MSBuild -property installationPath -latest)"
-
-          #PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64"
-          PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
-          cmd.exe /c echo $PAT
+        
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
@@ -176,5 +146,6 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
