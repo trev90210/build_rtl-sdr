@@ -82,12 +82,12 @@ jobs:
     - name: libusb Configure Visual Studio and CMake
       working-directory: ${{runner.workspace}}
       run: |
-          cd ${{ github.workspace }}/libusb
+          cd ${{ github.workspace }}
           # setup the compiler
           cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
           Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
           # run cmake, looks v141_xp Toolset requires VS 2019
-          cmake -G "Visual Studio 17 2022" -A Win32 -S libusb -B build_libusb
+          cmake -G "Visual Studio 17 2022" -A Win32 -S libusb/libusb -B build_libusb
           cmd.exe /c dir /s
 
           echo "********************************************"
@@ -114,7 +114,7 @@ jobs:
           Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
           set
           # run cmake, looks v141_xp Toolset requires VS 2019
-          cmake -G "Visual Studio 17 2022" -A Win32 -S ExtIO_RTL_h -B build_librtlsdr \
+          cmake -G "Visual Studio 17 2022" -A Win32 -S rtl-sdr -B build_librtlsdr \
                 -DTHREADS_PTHREADS_INCLUDE_DIR='${{github.workspace}}/pthread-win32/static/include' \
                 -DTHREADS_PTHREADS_LIBRARY='${{github.workspace}}/pthread-win32/static/lib/pthreadVC3.lib' \
                 -DLIBUSB_LIBRARY='${{github.workspace}}/libusb/Release/lib/libusb-1.0.lib' \
@@ -148,6 +148,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
