@@ -105,20 +105,20 @@ jobs:
 
           #PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64"
           PATH=$PATH:"/c/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin"
-          cmd.exe /c echo $PATH
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
+          cmd.exe /c echo $PAT
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
-      - name: Configure Visual Studio and CMake
-        working-directory: ${{runner.workspace}}
-        run: |
-            cd ${{ github.workspace }}
-            # setup the compiler
-            cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
-            Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
-            # run cmake, looks v141_xp Toolset requires VS 2019
-            cmake -G "Visual Studio 17 2022" -A Win32 -S libusb -B build_libusb
-            cmd.exe /c dir /s
+    - name: Configure Visual Studio and CMake
+      working-directory: ${{runner.workspace}}
+      run: |
+          cd ${{ github.workspace }}
+          # setup the compiler
+          cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+          Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
+          # run cmake, looks v141_xp Toolset requires VS 2019
+          cmake -G "Visual Studio 17 2022" -A Win32 -S libusb -B build_libusb
+          cmd.exe /c dir /s
 
           echo "********************************************"
           echo "dir /s"
@@ -176,4 +176,5 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
