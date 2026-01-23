@@ -96,7 +96,7 @@ jobs:
           echo "********************************************"
           cd ..
 
-    - name: librtlsdr Configure Visual Studio and CMake
+    - name: rtl-sdr Configure Visual Studio and CMake
       working-directory: ${{ runner.workspace }}
       run: |
           cd ${{ runner.workspace }}
@@ -123,7 +123,7 @@ jobs:
     - name: Build
       working-directory: ${{runner.workspace}}
       shell: bash
-      run: cmake --build build_librtlsdr --config $BUILD_TYPE --target librtlsdr
+      run: cmake --build build_rtl-sdr --config $BUILD_TYPE --target librtlsdr
 
     #- name: Dir Listing
     #  working-directory: ${{runner.workspace}}
@@ -134,9 +134,9 @@ jobs:
       working-directory: ${{github.workspace}}
       shell: bash
       run: |
-        cp "${{github.workspace}}/ExtIO_RTL/README.md" ./
-        cp "${{github.workspace}}/ExtIO_RTL/COPYING" ./LICENSE
-        cp "${{github.workspace}}/build_librtlsdr/Release/ExtIO_RTL.dll" ./
+        #cp "${{github.workspace}}/ExtIO_RTL/README.md" ./
+        #cp "${{github.workspace}}/ExtIO_RTL/COPYING" ./LICENSE
+        cp "${{github.workspace}}/Release/*" ./
 
     - name: package and upload
       uses: actions/upload-artifact@v4
@@ -146,6 +146,7 @@ jobs:
             ${{github.workspace}}/ExtIO_RTL.dll
             ${{github.workspace}}/README.md
             ${{github.workspace}}/LICENSE
+
 
 
 
