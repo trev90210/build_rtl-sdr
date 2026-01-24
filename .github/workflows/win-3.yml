@@ -78,7 +78,7 @@ jobs:
           ls -Recurse -Exclude ".git" -Path  "${{ github.workspace }}"
           echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }}"
-          ls -Recurse -Exclude ".git" -Path  "${{ runner.workspace }}" 
+          ls -Path  "${{ runner.workspace }}" 
         
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
