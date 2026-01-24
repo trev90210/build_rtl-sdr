@@ -80,15 +80,15 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: libusb Configure Visual Studio and CMake
-      working-directory: ${{runner.workspace}}
+      working-directory: ${{github.workspace}}
       run: |
-          msbuild msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
+          msbuild libusb/msvc/libusb.sln /m -property:Configuration=Release -property:Platform=Win32
 
           echo "********************************************"
           echo "dir /s"
-          ls -las
-          ls ..
-          ls ../..
+          dir /s
+          dir ..
+          dir ../..
           echo "********************************************"
           cd ..
 
