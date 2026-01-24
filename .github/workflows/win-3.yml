@@ -125,7 +125,7 @@ jobs:
     - name: Build
       working-directory: ${{github.workspace}}
       #shell: bash
-      run: cmake --build build --config Release --target librtlsdr
+      run: cmake --build build --config Release --target rtlsdr
 
     #- name: Dir Listing
     #  working-directory: ${{runner.workspace}}
