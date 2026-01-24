@@ -42,7 +42,7 @@ jobs:
           cd "${{ github.workspace }}"
           git clone https://github.com/marzer/tomlplusplus tomlplusplus
           git clone https://github.com/libusb/libusb libusb
-          git clone https://github.com/trev90211/rtl-sdr
+          git clone https://github.com/trev90211/rtl-sdr rtl-sdr
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
           cmd.exe /c echo "********************************************"
           cmd.exe /c echo "dir /s"
@@ -102,7 +102,8 @@ jobs:
               -DLIBUSB_LIBRARIES=${{github.workspace}}/libusb/VS2019/MS64/Release/lib/libusb-1.0.lib \
               -DLIBUSB_INCLUDE_DIRS=${{github.workspace}}/libusb/include/libusb-1.0 \
               -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/Pre-built.2/include \
-              -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/Pre-built.2/lib/x86/pthreadVC2.lib ..
+              -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/Pre-built.2/lib/x86/pthreadVC2.lib \
+              ../rtl-sdr
         cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
         cmake --install . --prefix ${{github.workspace}}/dist --config Release
         ###echo "* ${{github.workspace}} : `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
