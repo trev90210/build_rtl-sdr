@@ -121,6 +121,7 @@ jobs:
           ls
           ls -Recurse -Path build
           ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}/rtl-sdr"
+          cat "${{ github.workspace }}/build\src\rtlsdr.vcxproj"
     
     - name: Build
       working-directory: ${{github.workspace}}
