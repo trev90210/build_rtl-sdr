@@ -1,4 +1,4 @@
-name: win-2 
+name: win-3
 # clones all 
 
 on:
@@ -92,31 +92,20 @@ jobs:
           echo "********************************************"
           cd ..
 
-    - name: rtl-sdr Configure Visual Studio and CMake
-      working-directory: ${{ runner.workspace }}
+
+
+    - name: RTL-SDR build
       run: |
-          cd ${{ runner.workspace }}
-          dir 
-          #dir "d:\a\ExtIO_RTL_h\ExtIO_RTL_h\pthread-win32\" 
-          #dir "c:\Program Files (x86)\Microsoft Visual Studio/installer"
-          #dir "c:\Program Files (x86)\Microsoft Visual Studio/shared"
-          #dir "c:\Program Files (x86)\Microsoft Visual Studio 14.0/SDK"
-          #dir "c:\Program Files\Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/build"
-          #dir "c:\Program Files\Microsoft Visual Studio 14.0/common7"
-          # setup the compiler
-          "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
-          type %temp%\vcvars.txt
-          type temp\vcvars.txt
-          Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
-          set
-          # run cmake, looks v141_xp Toolset requires VS 2019
-          cmake -G "Visual Studio 17 2022" -A Win32 -S rtl-sdr -B build_librtlsdr \
-                -DTHREADS_PTHREADS_INCLUDE_DIR='${{github.workspace}}/pthread-win32/static/include' \
-                -DTHREADS_PTHREADS_LIBRARY='${{github.workspace}}/pthread-win32/static/lib/pthreadVC3.lib' \
-                -DLIBUSB_LIBRARY='${{github.workspace}}/libusb/Release/lib/libusb-1.0.lib' \
-                -DLIBUSB_INCLUDE_DIRS='${{github.workspace}}/libusb/include/libusb-1.0' .
-          ls ${{ runner.workspace }}
-          ls ${{ github.workspace }}
+        mkdir $RTL_SDR_REPO/build && cd $RTL_SDR_REPO/build
+        cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release\
+              -DLIBUSB_LIBRARIES=$GITHUB_WORKSPACE/libusb/VS2019/MS$ARCH_NUM/Release/lib/libusb-1.0.lib \
+              -DLIBUSB_INCLUDE_DIRS=$GITHUB_WORKSPACE/libusb/include/libusb-1.0 \
+              -DTHREADS_PTHREADS_INCLUDE_DIR=$GITHUB_WORKSPACE/pthreads/Pre-built.2/include \
+              -DTHREADS_PTHREADS_LIBRARY=$GITHUB_WORKSPACE/pthreads/Pre-built.2/lib/$ARCH/pthreadVC2.lib ..
+        cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
+        cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
+        echo "* $RTL_SDR_REPO: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+        ls -lashR $GITHUB_WORKSPACE/$RTL_SDR_REPO
 
     - name: Build
       working-directory: ${{runner.workspace}}
