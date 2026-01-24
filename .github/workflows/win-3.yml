@@ -96,17 +96,17 @@ jobs:
 
     - name: RTL-SDR build
       run: |
-        mkdir $RTL_SDR_REPO/build
-        cd $RTL_SDR_REPO/build
-        cmake -A $CMAKE_ARCH -DCMAKE_BUILD_TYPE=Release \
+        mkdir ${{github.workspace}}/build
+        cd ${{github.workspace}}/build
+        cmake -A x64 -DCMAKE_BUILD_TYPE=Release \
               -DLIBUSB_LIBRARIES=${{github.workspace}}/libusb/VS2019/MS64/Release/lib/libusb-1.0.lib \
               -DLIBUSB_INCLUDE_DIRS=${{github.workspace}}/libusb/include/libusb-1.0 \
               -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/Pre-built.2/include \
               -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/Pre-built.2/lib/x86/pthreadVC2.lib ..
         cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
         cmake --install . --prefix ${{github.workspace}}/dist --config Release
-        ###echo "* $RTL_SDR_REPO: `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
-        ls -lashR ${{github.workspace}}/$RTL_SDR_REPO
+        ###echo "* ${{github.workspace}} : `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
+        ls -lashR ${{github.workspace}}
 
     - name: Build
       working-directory: ${{runner.workspace}}
