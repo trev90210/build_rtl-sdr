@@ -118,6 +118,7 @@ jobs:
 
     - name: List
       run: |
+          ls -Path build
           ls
           ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}/rtl-sdr"
     
