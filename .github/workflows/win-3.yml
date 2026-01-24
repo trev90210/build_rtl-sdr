@@ -105,7 +105,7 @@ jobs:
               -DTHREADS_PTHREADS_LIBRARY=$GITHUB_WORKSPACE/pthreads/Pre-built.2/lib/$ARCH/pthreadVC2.lib ..
         cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
         cmake --install . --prefix $GITHUB_WORKSPACE/dist --config Release
-        echo "* $RTL_SDR_REPO: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
+        ###echo "* $RTL_SDR_REPO: `git show --format='%h (%s, %as)' --no-patch`" >> $GITHUB_WORKSPACE/release_notes.md
         ls -lashR $GITHUB_WORKSPACE/$RTL_SDR_REPO
 
     - name: Build
