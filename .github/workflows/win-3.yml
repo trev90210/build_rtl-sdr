@@ -115,8 +115,11 @@ jobs:
         cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
         cmake --install . --prefix ${{github.workspace}}/dist --config Release
         ###echo "* ${{github.workspace}} : `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
-        ls -Recurse -Exclude ".git" "${{github.workspace}}/rtl-sdr"
 
+    - name: List
+      run: |
+          ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}/rtl-sdr"
+    
     - name: Build
       working-directory: ${{github.workspace}}
       #shell: bash
