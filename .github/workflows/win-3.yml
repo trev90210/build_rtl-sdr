@@ -104,7 +104,7 @@ jobs:
     - name: RTL-SDR build
       run: |
         mkdir ${{github.workspace}}/build
-        cd ${{github.workspace}}/rtl-sdr
+        cd ${{github.workspace}}/build
         ls
         cmake -A x64 -DCMAKE_BUILD_TYPE=Release `
               -DLIBUSB_LIBRARIES=${{github.workspace}}/libusb/VS2019/MS64/Release/lib/libusb-1.0.lib `
