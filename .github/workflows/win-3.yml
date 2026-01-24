@@ -64,11 +64,11 @@ jobs:
       working-directory: ${{ github.workspace }}
       run: |
           cd pthread-win32
-          cmake -B "${{github.workspace}}/pthread-win32/static" \
-                -DBUILD_SHARED_LIBS=OFF \
+          cmake -B "${{github.workspace}}/pthread-win32/static" `
+                -DBUILD_SHARED_LIBS=OFF `
                 -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/pthread-win32/static"
-          cmake --build "${{github.workspace}}/pthread-win32/static" \
-                --config Release \
+          cmake --build "${{github.workspace}}/pthread-win32/static" `
+                --config Release `
                 --target install
           cmd.exe /c echo "********************************************"
           cmd.exe /c echo "dir /s"
@@ -86,9 +86,9 @@ jobs:
     - name: libusb Configure Visual Studio and CMake
       working-directory: ${{github.workspace}}
       run: |
-          msbuild libusb/msvc/libusb.sln \
-                /m \
-                -property:Configuration=Release \
+          msbuild libusb/msvc/libusb.sln `
+                /m `
+                -property:Configuration=Release `
                 -property:Platform=Win32
 
           echo "********************************************"
@@ -106,11 +106,11 @@ jobs:
         mkdir ${{github.workspace}}/build
         cd ${{github.workspace}}/rtl-sdr
         ls
-        cmake -A x64 -DCMAKE_BUILD_TYPE=Release \
-              -DLIBUSB_LIBRARIES=${{github.workspace}}/libusb/VS2019/MS64/Release/lib/libusb-1.0.lib \
-              -DLIBUSB_INCLUDE_DIRS=${{github.workspace}}/libusb/include/libusb-1.0 \
-              -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/Pre-built.2/include \
-              -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/Pre-built.2/lib/x86/pthreadVC2.lib \
+        cmake -A x64 -DCMAKE_BUILD_TYPE=Release `
+              -DLIBUSB_LIBRARIES=${{github.workspace}}/libusb/VS2019/MS64/Release/lib/libusb-1.0.lib `
+              -DLIBUSB_INCLUDE_DIRS=${{github.workspace}}/libusb/include/libusb-1.0 `
+              -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/Pre-built.2/include `
+              -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/Pre-built.2/lib/x86/pthreadVC2.lib `
               ../rtl-sdr
         cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
         cmake --install . --prefix ${{github.workspace}}/dist --config Release
