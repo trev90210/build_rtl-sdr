@@ -118,9 +118,9 @@ jobs:
         ls -lashR ${{github.workspace}}
 
     - name: Build
-      working-directory: ${{runner.workspace}}
+      working-directory: ${{github.workspace}}
       #shell: bash
-      run: cmake --build build_librtlsdr --config Release --target librtlsdr
+      run: cmake --build . --config Release --target librtlsdr
 
     #- name: Dir Listing
     #  working-directory: ${{runner.workspace}}
