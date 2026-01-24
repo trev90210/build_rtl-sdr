@@ -46,19 +46,19 @@ jobs:
           git clone https://github.com/GerHobbelt/pthread-win32 pthread-win32
           echo "********************************************"
           echo "dir /s"
-          dir /s
+          ls
           echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }} /s"
-          dir "${{ runner.workspace }}" /s
+          ls -Recurse -Exclude ".git" -Path "${{ runner.workspace }}"
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}/pthread-win32/static"
-          dir "${{ github.workspace }}/pthread-win32" /s
+          ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}/pthread-win32" 
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}/libusb"
-          dir "${{ github.workspace }}/libusb" /s
+          ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}/libusb"
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }}"
-          dir "${{ github.workspace }}" /s
+          ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}"
           echo "********************************************"
     - name: Build pthread-win32
       working-directory: ${{ github.workspace }}
@@ -72,13 +72,13 @@ jobs:
                 --target install
           echo "********************************************"
           echo "dir /s"
-          dir /s
+          ls -Recurse -Exclude ".git" 
           echo "********************************************"
           echo "github.workspace  ${{ github.workspace }} /s"
-          dir "${{ github.workspace }}" /s
+          ls -Recurse -Exclude ".git" -Path  "${{ github.workspace }}"
           echo "********************************************"
           echo "runner.workspace  ${{ runner.workspace }}"
-          dir "${{ runner.workspace }}" /s
+          ls -Recurse -Exclude ".git" -Path  "${{ runner.workspace }}" 
         
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
@@ -93,9 +93,9 @@ jobs:
 
           echo "********************************************"
           echo "dir /s"
-          dir /s
-          dir ..
-          dir ../..
+          ls -Recurse -Exclude ".git" 
+          ls -Recurse -Exclude ".git" -Path  ..
+          ls -Recurse -Exclude ".git" -Path  ../..
           echo "********************************************"
           cd ..
 
