@@ -112,8 +112,9 @@ jobs:
               -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/Pre-built.2/include `
               -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/Pre-built.2/lib/x86/pthreadVC2.lib `
               ../rtl-sdr
-        cmake --build . --parallel $NUMBER_OF_PROCESSORS --config Release
-        cmake --install . --prefix ${{github.workspace}}/dist --config Release
+        cd ..
+        cmake --build build --parallel 1 --config Release
+        cmake --install build --prefix ${{github.workspace}}/dist --config Release
         ###echo "* ${{github.workspace}} : `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
 
     - name: List
@@ -123,10 +124,6 @@ jobs:
           ls -Recurse -Exclude ".git" -Path "${{ github.workspace }}/rtl-sdr"
           cat "${{ github.workspace }}/build\src\rtlsdr.vcxproj"
     
-    - name: Build
-      working-directory: ${{github.workspace}}
-      #shell: bash
-      run: cmake --build build --config Release --target rtlsdr
 
     #- name: Dir Listing
     #  working-directory: ${{runner.workspace}}
