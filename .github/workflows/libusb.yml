@@ -53,4 +53,5 @@ jobs:
       - name: List
         working-directory: ${{runner.workspace}}
         run: |
-            ls -Recurse -Exclude ".git" -Path  "${{ github.workspace }}"
+            ls -Recurse -Exclude ".git" -Path  "${{ github.workspace }}/libusb/build"
+            ls -Path  "${{ github.workspace }}/libusb/build"
