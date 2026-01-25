@@ -115,9 +115,9 @@ jobs:
 
         ls -Recurse
         ## cd ..
-        cmake --build build --source rtl-sdr --parallel 1 --config Release
+        cmake --build build --parallel 1 --config Release
         echo "*********************************************"
-        cmake --install build build --prefix ${{github.workspace}}/dist --config Release
+        cmake --install build --prefix ${{github.workspace}}/dist --config Release
         ###echo "* ${{github.workspace}} : `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
 
     - name: List
