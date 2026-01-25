@@ -113,6 +113,7 @@ jobs:
               -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/lib `
               -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/pthread-win32/static/lib/pthreadVC2.lib `
               ../rtl-sdr
+        ls -Recurse
         cd ..
         cmake --build build --source rtl-sdr --parallel 1 --config Release
         echo "*********************************************"
