@@ -2,6 +2,10 @@ name: libusb Windows build and Package
 
 on: [workflow_dispatch, push, pull_request]
 
+defaults:
+  run:
+    shell: PowerShell
+
 jobs:
   build:
     strategy:
@@ -15,10 +19,14 @@ jobs:
           - 'Win32'
           - 'x64'
           - 'ARM64'
-
+          
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: install
+        run: |
+          choco install wget innoextract --no-progress
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -26,7 +34,7 @@ jobs:
         run: |
           git clone https://github.com/trev90210/libusb
           cd libusb
-          cmd.exe /c "dir"
+          ls
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
@@ -37,9 +45,12 @@ jobs:
         working-directory: ${{runner.workspace}}
         run: |
             cd ${{ github.workspace }}
-            # setup the compiler
-            cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
-            Get-Content "$env:temp\vcvars.txt" | Foreach-Object { if ($_ -match "^(.*?)=(.*)$") { Set-Content "env:\$($matches[1])" $matches[2] } }
-            # run cmake, looks v141_xp Toolset requires VS 2019
-            cmake -G "Visual Studio 17 2022" -A Win32 -S libusb -B build_libusb
-            cmd.exe /c dir /s
+            msbuild libusb/msvc/libusb.sln `
+                /m `
+                -property:Configuration=Release `
+                -property:Platform=${{ matrix.architecture }}
+    
+      - name: List
+        working-directory: ${{runner.workspace}}
+        run: |
+            ls -Recurse -Exclude ".git" -Path  "${{ github.workspace }}"
