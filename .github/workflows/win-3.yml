@@ -114,7 +114,7 @@ jobs:
               -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/pthread-win32/static/lib/pthreadVC2.lib `
               ../rtl-sdr
         cd ..
-        cmake --build build --parallel 1 --config Release
+        cmake --build build --source rtl-sdr --parallel 1 --config Release
         echo "*********************************************"
         cmake --install build build --prefix ${{github.workspace}}/dist --config Release
         ###echo "* ${{github.workspace}} : `git show --format='%h (%s, %as)' --no-patch`" >> ${{github.workspace}}/release_notes.md
