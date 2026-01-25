@@ -105,16 +105,16 @@ jobs:
     - name: RTL-SDR build
       run: |
         mkdir ${{github.workspace}}/build
-        cd ${{github.workspace}}/build
+        ## cd ${{github.workspace}}/build
         ls
         cmake -A x64 -DCMAKE_BUILD_TYPE=Release `
               -DLIBUSB_LIBRARIES=${{github.workspace}}/libusb/build/v143/x64/Release/lib/libusb-1.0.lib`
               -DLIBUSB_INCLUDE_DIRS=${{github.workspace}}/libusb `
               -DTHREADS_PTHREADS_INCLUDE_DIR=${{github.workspace}}/pthreads/lib `
               -DTHREADS_PTHREADS_LIBRARY=${{github.workspace}}/pthreads/pthread-win32/static/lib/pthreadVC2.lib `
-              ../rtl-sdr
+              -S rtl-sdr -B build
         ls -Recurse
-        cd ..
+        ## cd ..
         cmake --build build --source rtl-sdr --parallel 1 --config Release
         echo "*********************************************"
         cmake --install build build --prefix ${{github.workspace}}/dist --config Release
